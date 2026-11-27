@@ -22,6 +22,6 @@ print(interaction.output_text)
 
 
 with open(f"user_info.txt","a", encoding="UTF-8") as file:
-    file.write('{interaction.output_text}\n')
+    file.write(f"{interaction.output_text}\n")
 
 

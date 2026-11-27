@@ -10,7 +10,7 @@ while True:
     user_input= input("User:")
 
     interaction = client.interactions.create(
-         model="gemini-4-hydrogen",
+         model="gemma-4-26b-a4b-it",
          input = user_input
     )
 
