@@ -13,19 +13,20 @@ info_retrieval_function = {
     "parameters": {
         "type": "object",
         "properties": {
-                "previous_step": {"type": "STRING", "description": "Key findings and outcomes since the previous step."},
                 "name": {"type": "string", "description": "User's name."},
                 "address": {"type": "string", "description": "User's address."},
                 "email": {"type": "string", "description": "User's email address."},
                 "dog's name": {"type": "string", "description": "pet dog's name"},
                 "cat's name": {"type": "string", "description": "pet cat's name"},
-                "phone number": {"type": "array", "items": {"type": "number"}},
+                "phone number": {"type": "integer", "description":"user's phone number"},
                 "age": {"type":"integer", "description": "User's age"},
                 "workplace": {"type":"string","description":"where the user works."}
         },
         "additionalInformation": True,
     }
 }
+
+
 
 
 def save_info_function(data):
@@ -38,24 +39,33 @@ def save_info_function(data):
 args=[]
 
 while True:
+    prompt="You are an assistant for the user. You're basically storing their information in a file for that you have tool call option and always follow up to the user's question."
     user_input = input("User:")
     if user_input.lower() in ["q", "quit"]:
         print("Chatbot: Goodbye!")
         break
     interaction = client.interactions.create(
         model="gemini-3.1-flash-lite",
-        input=user_input,
+        input=[
+        {"type":"text","text": user_input},
+        {"type":"text","text": prompt}
+        ],
         tools=[{"type": "function", **info_retrieval_function}],
     )
-
-    print("Chat:", interaction.output_text)
-
     
     
     for step in interaction.steps:
         if step.type == "function_call":
             args.append(step.arguments)
-            print (args)
+            interaction = client.interactions.create(
+                    model="gemini-3.1-flash-lite",
+                    input=[
+                    {"type":"text","text": user_input},
+                    {"type":"text","text": "You are an efficient assistant."}
+                    ],
+                )
+            
+    print("Chat:", interaction.output_text)
 
 for arg in args:
  save_info_function(arg)

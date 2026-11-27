@@ -1,3 +1,5 @@
 .env
 chat_history.txt
 user_info.txt
+initial_chatbot.py
+storeinfo.py
