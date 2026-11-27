@@ -1,6 +1,5 @@
 .env
 chat_history.txt
 user_info.txt
-*.py
-!chatbot.py
+
 

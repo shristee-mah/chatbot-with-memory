@@ -3,7 +3,24 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv(override=True)
-client=genai.Client(api_key=os.getenv("GEMAI_API_KEY"))
+client=genai.Client(api_key=os.getenv("GENAI_API_KEY"))
+    
+
+while True:
+    user_input = input("User:")
+    if user_input.lower() in ["q", "quit"]:
+            print("Chatbot: Goodbye!")
+            break
+
+    interaction = client.interactions.create(
+         model="gemma-4-26b-a4b-it",
+         input = user_input
+    )
+
+    print('Chat:',interaction.output_text)
+
+    with open("chat_history.txt","a", encoding="utf-8") as file:
+            file.write(f"{user_input}\n")
 
 with open("chat_history.txt","r", encoding="UTF-8") as f:
     file_content=f.read()
@@ -23,5 +40,3 @@ print(interaction.output_text)
 
 with open(f"user_info.txt","a", encoding="UTF-8") as file:
     file.write(f"{interaction.output_text}\n")
-
-

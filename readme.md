@@ -5,7 +5,8 @@ A Simple Chatbot System that talks with the user, saves the users' chats in a fi
 # Files description:
 1. requirements.txt: consists of the necessary dependencies.
 2. .env: consists of Gemini API key.
-3. chatbot.py: The chatbot function that uses function calling to retrieve the personal information when users provides any and saves the dats in user_info.txt at the end of the session when users type "q" or "quit".
+3. initial_chatbot.py: A basic chatbot function that saves the user's chat in a .txt file and then uses the same file to retrieve personal information afterwards the session ends when users type "q" or "quit".
+3. chatbot.py: The chatbot function that uses function calling to retrieve the personal information when users provides any and saves the dats in user_info.txt after the session ends.
 6. .gitignore: Including .env containing the api keys and the txt files
 
 # Future Improvements:
